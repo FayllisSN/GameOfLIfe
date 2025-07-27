@@ -6,6 +6,7 @@
 #define height 28
 int gameMatrix[height][width];
 int cellsLimits = (width - 2) * (height - 2);
+int cellCount = 0;
 void init_area()
 {
     for(int i = 0;i < height;i++){
@@ -42,7 +43,7 @@ void cell_inputMode(int celAm)
         }
         if(mode == 1){
             while(count++ < celAm){
-                printf("Input X betwen(1,55) and Y betwen(1,27) for cell №[%d]\n",count);
+                printf("Input X betwen(1,54) and Y betwen(1,26) for cell №[%d]\n",count);
                 scanf("%d %d",&celX,&celY);
                 gameMatrix[celY][celX] = '#';
             }
@@ -58,6 +59,7 @@ void cell_inputMode(int celAm)
         }
         break;
     }
+    system("cls");
 }
 void draw_frame()
 {
@@ -71,13 +73,65 @@ void draw_frame()
     Sleep(700);
     system("cls");
 }
+void cell_Statuscheck()
+{
+    for(int i = 1;i < height - 1;i++){
+        for(int j = 1;j < width - 1;j++){
+            cellCount = 0;
+            if(gameMatrix[i][j] == ' '){
+                for(int k = i - 1;k <= i + 1;k++){
+                    for(int l = j - 1;l <= j + 1;l++){
+                        if((k == i && l == j)) continue;
+                        if(gameMatrix[k][l] == '#' || gameMatrix[k][l] == '*') cellCount++;
+                    }
+                }
+                if(cellCount == 3){
+
+                    gameMatrix[i][j] = '.';
+                }
+                continue;
+            }
+            if(gameMatrix[i][j] == '#'){
+                for(int k = i - 1;k <= i + 1;k++){
+                    for(int l = j - 1;l <= j + 1;l++){
+                        if(k == i && l == j) continue;
+                        if(gameMatrix[k][l] == '#' || gameMatrix[k][l] == '*') cellCount++;
+                    }
+                }
+                if(cellCount < 2 || cellCount > 3){
+                    gameMatrix[i][j] = '*';
+                } 
+            }
+        }
+    }
+    for(int i = 1;i < height - 1;i++){
+        for(int j = 1;j < width - 1;j++){
+            if(gameMatrix[i][j] == '*') gameMatrix[i][j] = ' ';
+            if(gameMatrix[i][j] == '.') gameMatrix[i][j] = '#';
+        }
+    }
+}
+int cell_AmountCheck()
+{
+    cellCount = 0;
+    for(int i = 1;i < height - 1;i++){
+        for(int j = 1;j < width - 1;j++){
+            if(gameMatrix[i][j] == '#') cellCount++;
+        }
+    }
+    return cellCount;
+}
 int main(void)
 {
     srand(time(NULL));
     init_area();    
     int celAm = cell_inputAmount();
     cell_inputMode(celAm);
-    while(1) draw_frame();
-
+    while(1){
+        draw_frame();
+        cell_Statuscheck();
+        if(cell_AmountCheck() == 0) break;;
+    }
+    printf("ALL LIFE DIED");
     return 0;
 }
