@@ -1,0 +1,10 @@
+{
+    "code-runner.runInTerminal": true,
+    "files.associations": {
+        "stdio.h": "c",
+        "windows.h": "c",
+        "time.h": "c",
+        "cell_area_func.h": "c",
+        "stdlib.h": "c"
+    }
+}
