@@ -65,7 +65,31 @@ void draw_frame()
     for(int i = 0;i < height;i++){
         //printf("                                            ");
         for(int j = 0;j < width;j++){
-            printf("%c",gameMatrix[i][j]);
+            if(j == 0 && i == 0){ 
+                printf("\u2554");
+                continue;
+            }
+            if(j == width - 1 && i == height - 1){ 
+                printf("\u255D");
+                continue;
+            }
+            if(j == width - 1 && i == 0){ 
+                printf("\u2557");
+                continue;
+            }
+            if(j == 0 && i == height - 1){ 
+                printf("\u255A");
+                continue;
+            }
+            if(gameMatrix[i][j] == '_'){ 
+                printf("\u2550");
+                continue;
+            }
+            if(gameMatrix[i][j] == '|'){ 
+                printf("\u2551");
+                continue;
+            }
+            printf(" ");
         }
         printf("\n");
     }
@@ -105,12 +129,12 @@ void cell_Statuscheck()
     for(int i = 1;i < height - 1;i++){
         for(int j = 1;j < width - 1;j++){
             if(gameMatrix[i][j] == '*'){ 
-                //gameMatrix[i][j] = ' ';
+                gameMatrix[i][j] = ' ';
                 printf("\x1b[%d;%df", i + 1, j + 1);
                 printf("%c",gameMatrix[i][j] = ' ');
             }
-            if(gameMatrix[i][j] == '.'){ 
-                //gameMatrix[i][j] = '#';
+            if(gameMatrix[i][j] == '.' || gameMatrix[i][j] == '#'){ 
+                gameMatrix[i][j] = '#';
                 printf("\x1b[%d;%df", i + 1, j + 1);
                 printf("%c",gameMatrix[i][j] = '#');
             }
