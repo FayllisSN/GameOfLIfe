@@ -1,5 +1,5 @@
-#ifndef __CELL_AREA_FUNC_H__
-#define __CELL_AREA_FUNC_H__
+#ifndef _CELL_AREA_FUNC_H_
+#define _CELL_AREA_FUNC_H_
 
 #endif
 

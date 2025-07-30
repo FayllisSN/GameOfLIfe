@@ -11,15 +11,14 @@ int main(void)
     int celAm = cell_inputAmount();
     printf("Interval between frames\n"); 
     scanf("%d",&intervalTime);
-    printf("\e[?25l");
     cell_inputMode(celAm);
+    //printf("\e[?25l");
     draw_frame();
     while(1){
         cell_Statuscheck();
         Sleep(intervalTime);
         if(cell_AmountCheck() == 0) {
             printf("\x1b[%d;%df", 1, 1);
-            //draw_frame();
             printf("ALL LIFE DIED\nAmount of generations:[%d]",++generation);       
             break;
         }

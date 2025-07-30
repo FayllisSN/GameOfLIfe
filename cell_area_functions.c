@@ -89,23 +89,33 @@ void draw_frame()
                 printf("\u2551");
                 continue;
             }
+            if(gameMatrix[i][j] == '#'){ 
+                printf("%c",gameMatrix[i][j]);
+                continue;
+            }
             printf(" ");
         }
         printf("\n");
     }
-    Sleep(100);
     //system("cls");
 }
 void cell_Statuscheck()
 {
+    int tempK,tempL,linecount = 1;
     for(int i = 1;i < height - 1;i++){
         for(int j = 1;j < width - 1;j++){
             cellCount = 0;
             if(gameMatrix[i][j] == ' '){
                 for(int k = i - 1;k <= i + 1;k++){
                     for(int l = j - 1;l <= j + 1;l++){
+                        if(k == 0) tempK = height - 2;
+                        else if(k == height - 1) tempK = 1;
+                        else tempK = k;
+                        if(l == 0) tempL = width - 2;
+                        else if(l == width - 1) tempL = 1;
+                        else tempL = l;
                         if((k == i && l == j)) continue;
-                        if(gameMatrix[k][l] == '#' || gameMatrix[k][l] == '*') cellCount++;
+                        if(gameMatrix[tempK][tempL] == '#' || gameMatrix[tempK][tempL] == '*') cellCount++;
                     }
                 }
                 if(cellCount == 3){
@@ -116,8 +126,14 @@ void cell_Statuscheck()
             if(gameMatrix[i][j] == '#'){
                 for(int k = i - 1;k <= i + 1;k++){
                     for(int l = j - 1;l <= j + 1;l++){
+                        if(k == 0) tempK = height - 2;
+                        else if(k == height - 1) tempK = 1;
+                        else tempK = k;
+                        if(l == 0) tempL = width - 2;
+                        else if(l == width - 1) tempL = 1;
+                        else tempL = l;
                         if(k == i && l == j) continue;
-                        if(gameMatrix[k][l] == '#' || gameMatrix[k][l] == '*') cellCount++;
+                        if(gameMatrix[tempK][tempL] == '#' || gameMatrix[tempK][tempL] == '*') cellCount++;
                     }
                 }
                 if(cellCount < 2 || cellCount > 3){
